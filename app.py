@@ -54,14 +54,17 @@ def get_track(track_id):
     return jsonify(track) if track else (jsonify({"error": "Not found"}), 404)
 
 @app.route('/manifest.json')
-def manifest():
-    return app.send_static_file('../manifest.json')
+def serve_manifest():
+    # Ищем файл в той же папке, где лежит app.py
+    return send_from_directory(app.root_path, 'manifest.json')
 
-
+# ✅ ПРАВИЛЬНЫЙ МАРШРУТ ДЛЯ SERVICE WORKER
 @app.route('/sw.js')
-def service_worker():
-    return app.send_static_file('../sw.js')
+def serve_sw():
+    # Ищем файл в той же папке, где лежит app.py
+    return send_from_directory(app.root_path, 'sw.js')
 
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
