@@ -202,52 +202,64 @@ audioPlayer.addEventListener('ended', () => {
 // Воспроизведение
 // Помог сделать свечение и ивыбор без паузы
 // 1. Главная функция запуска (ИСПРАВЛЕННАЯ)
+// 1. ГЛАВНАЯ ФУНКЦИЯ ЗАПУСКА (УНИВЕРСАЛЬНАЯ)
 function playTrackByIndex(index) {
-    if (!tracks || tracks.length === 0) return;
-    if (index < 0 || index >= tracks.length) return;
-
-    const track = tracks[index];
-    const isSameTrack = (tracks[currentTrackIndex] && tracks[currentTrackIndex].id === track.id);
-
-    // СЦЕНАРИЙ 1: Кликнули на ТОТ ЖЕ трек, который играет -> ПАУЗА
-    if (isSameTrack && !audioPlayer.paused) {
-        audioPlayer.pause();
-        // Сразу обновляем интерфейс, чтобы кнопка стала серой
-        updateInterface(); 
+    // Проверка границ текущего отображаемого списка
+    if (!filteredTracks || index < 0 || index >= filteredTracks.length) {
+        console.error("❌ Индекс вне диапазона!");
         return;
     }
 
-    // СЦЕНАРИЙ 2: Новый трек ИЛИ возобновление паузы
-    currentTrackIndex = index;
-
-    console.log(`🔄 Переключение на: ${track.title}`);
-
-    // ⚡ ВАЖНО: Полная очистка перед новым треком
-    audioPlayer.pause();          
-    audioPlayer.currentTime = 0;  
-    audioPlayer.src = '';         
+    const track = filteredTracks[index]; // Трек из текущего вида (поиск или все)
+    const globalIndex = findTrackIndex(track.id); // Реальный индекс в полной базе
     
-    // 🟢 ХИТРОСТЬ: Обновляем интерфейс СРАЗУ, чтобы подсветить выбранный трек ЗЕЛЕНЫМ
-    // Мы временно считаем, что он играет, чтобы пользователь видел реакцию
+    if (globalIndex === -1) return;
+
+    // Проверяем, тот ли это трек
+    const isSameTrack = (tracks[currentTrackIndex]?.id === track.id);
+
+    // 🛑 СЦЕНАРИЙ ПАУЗЫ: Только если кликнули на ТОТ ЖЕ трек, который УЖЕ играет
+    if (isSameTrack && !audioPlayer.paused) {
+        audioPlayer.pause();
+        updateInterface(); // Обновляем кнопки (станут серыми)
+        return;
+    }
+
+    // ▶️ СЦЕНАРИЙ ЗАПУСКА (Новый трек ИЛИ тот же трек был на паузе)
+    currentTrackIndex = globalIndex;
+    
+    console.log(`🚀 Запуск: ${track.title}`);
+
+    // ⚡ МАГИЯ МГНОВЕННОГО ПЕРЕКЛЮЧЕНИЯ:
+    // 1. Жестко останавливаем всё, что было
+    audioPlayer.pause();
+    // 2. Сбрасываем время в ноль
+    audioPlayer.currentTime = 0;
+    // 3. Очищаем источник (разрываем связь со старым файлом)
+    audioPlayer.src = ''; 
+    
+    // 4. МГНОВЕННО рисуем зеленый интерфейс (пользователь видит реакцию сразу)
     updateInterface(true); 
 
+    // 5. Небольшая техническая задержка для сброса буфера браузера
     setTimeout(() => {
-        audioPlayer.src = track.url; 
-        audioPlayer.load();          
+        // Устанавливаем новый файл
+        audioPlayer.src = track.url;
+        audioPlayer.load(); // Принудительная перезагрузка
         
+        // Пытаемся играть
         const playPromise = audioPlayer.play();
+        
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                console.log("✅ Звук пошел");
-                // Финальное обновление, когда браузер подтвердил старт
-                updateInterface(false); 
+                // Успех: музыка играет, подтверждаем интерфейс
+                updateInterface(false);
             }).catch(error => {
-                console.error("❌ Ошибка запуска:", error);
-                // Если ошибка - убираем подсветку
-                updateInterface(false); 
+                console.error("❌ Ошибка воспроизведения:", error);
+                updateInterface(false);
             });
         }
-    }, 50);
+    }, 50); // 50мс достаточно для любого браузера
 }
 
 // Обновление кнопок Play и прогресс баров
@@ -558,5 +570,6 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
     }
     renderTracks(filteredTracks);
 });
+
 
 loadTracks();
