@@ -20,9 +20,9 @@ TRACKS = [
     {"id": 4, "title": "Acoustic Morning", "artist": "Bensound",
      "url": "https://moosic.my.mail.ru/file/ddda74f6bd7b1384bac69052c60f43c8.mp3",
      "duration": "3:10"},
-    {"id": 5, "title": "Jazz Cafe", "artist": "FMA",
+    {"id": 5, "title": "Уходи", "artist": "Руки ВВерх",
      "url": "https://moosic.my.mail.ru/file/56a12a60f5a2202be0ed52c18f167581.mp3",
-     "duration": "4:05"},
+     },
     {"id": 6, "title": "Ambient Flow", "artist": "Piапппап",
      "url": "https://moosic.my.mail.ru/file/588746078840a1e57802f98061854877.mp3",
      "duration": "3:30"},
@@ -67,4 +67,5 @@ def serve_sw():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
 
