@@ -9,7 +9,64 @@
     <meta name="theme-color" content="#0f0f23">
     <link rel="apple-touch-icon" href="/static/icons/wo.png">
     <meta name="theme-color" content="#0f0f23">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PWA Full Screen</title>
+    <link rel="manifest" href="manifest.json">
+    
+    <style>
+        /* 1. Убираем все отступы и скролл */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Запрещаем прокрутку */
+            background-color: #ffffff; /* Должен совпадать с background_color в manifest */
+        }
+
+        /* 2. Контейнер для картинки на весь экран */
+        .splash-screen {
+            width: 100vw;
+            height: 100vh; /* 100% высоты видимой области */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 3. Сама картинка */
+        .splash-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Заполняет весь экран, обрезая края если пропорции не совпадают */
+            /* Или используйте object-fit: contain; если важно видеть картинку целиком без обрезки */
+        }
+        
+        /* Дополнительно: поддержка безопасных зон для iPhone (челка, домашняя кнопка) */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+    </style>
 </head>
+<body>
+
+    <div class="splash-screen">
+        <!-- Замените src на путь к вашей картинке -->
+        <img src="splash-screen.jpg" alt="Loading" class="splash-image">
+    </div>
+
+    <script>
+        // Регистрация Service Worker (обязательно для PWA)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    </script>
+</body>
 <body>
     <!-- Анимированный фон (без лучей) -->
     <div class="bg-animation">
@@ -70,5 +127,6 @@
 </body>
 
 </html>
+
 
 
