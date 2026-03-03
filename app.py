@@ -1,5 +1,7 @@
 from flask import Flask, render_template, jsonify
 from flask_cors import CORS
+from flask import send_from_directory
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -55,9 +57,11 @@ def get_track(track_id):
 def manifest():
     return app.send_static_file('../manifest.json')
 
+
 @app.route('/sw.js')
 def service_worker():
     return app.send_static_file('../sw.js')
 
 if __name__ == '__main__':
+
     app.run(debug=True, host='0.0.0.0', port=5000)
