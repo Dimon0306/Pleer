@@ -262,6 +262,7 @@ function playTrackByIndex(index) {
     }, 50); // 50мс достаточно для любого браузера
 }
 
+
 // Обновление кнопок Play и прогресс баров
 function updatePlayButtons() {
     document.querySelectorAll('.track-card').forEach(card => {
@@ -573,3 +574,4 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
 
 
 loadTracks();
+
