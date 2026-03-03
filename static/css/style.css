@@ -1,0 +1,575 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f0f23;
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 20px; /* Отступ снизу вместо плеера */
+}
+
+/* ========== АНИМИРОВАННЫЙ ФОН ========== */
+.bg-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+    overflow: hidden;
+}
+
+.gradient-mesh {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(118, 75, 162, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 60% 60%, rgba(79, 172, 254, 0.1) 0%, transparent 40%);
+    animation: meshRotate 20s linear infinite;
+    filter: blur(40px);
+}
+
+@keyframes meshRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.floating-orbs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: floatOrb 15s ease-in-out infinite;
+}
+
+.orb1 { width: 300px; height: 300px; background: linear-gradient(135deg, #667eea, #764ba2); top: 10%; left: 10%; animation-delay: 0s; }
+.orb2 { width: 200px; height: 200px; background: linear-gradient(135deg, #f093fb, #f5576c); top: 60%; left: 70%; animation-delay: -3s; }
+.orb3 { width: 250px; height: 250px; background: linear-gradient(135deg, #4facfe, #00f2fe); top: 40%; left: 50%; animation-delay: -6s; }
+.orb4 { width: 180px; height: 180px; background: linear-gradient(135deg, #43e97b, #38f9d7); top: 70%; left: 20%; animation-delay: -9s; }
+.orb5 { width: 220px; height: 220px; background: linear-gradient(135deg, #fa709a, #fee140); top: 20%; left: 80%; animation-delay: -12s; }
+
+@keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(50px, -50px) scale(1.1); opacity: 0.6; }
+    50% { transform: translate(-30px, 30px) scale(0.9); opacity: 0.5; }
+    75% { transform: translate(40px, 20px) scale(1.05); opacity: 0.7; }
+}
+
+.aurora {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    pointer-events: none;
+    overflow: hidden;
+    opacity: 0.6;
+}
+
+.aurora-bands { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+.aurora-band {
+    position: absolute;
+    width: 150%;
+    height: 200px;
+    left: -25%;
+    filter: blur(30px);
+    opacity: 0.5;
+    mix-blend-mode: screen;
+}
+
+.aurora-band.band1 {
+    background: linear-gradient(90deg, transparent, rgba(72, 209, 204, 0.6), rgba(46, 213, 115, 0.8), rgba(72, 209, 204, 0.6), transparent);
+    top: 10%;
+    animation: auroraWave1 8s ease-in-out infinite;
+}
+.aurora-band.band2 {
+    background: linear-gradient(90deg, transparent, rgba(118, 75, 162, 0.5), rgba(102, 126, 234, 0.7), rgba(118, 75, 162, 0.5), transparent);
+    top: 20%;
+    animation: auroraWave2 10s ease-in-out infinite;
+    animation-delay: -2s;
+}
+.aurora-band.band3 {
+    background: linear-gradient(90deg, transparent, rgba(236, 72, 153, 0.4), rgba(240, 147, 251, 0.6), rgba(236, 72, 153, 0.4), transparent);
+    top: 30%;
+    animation: auroraWave3 12s ease-in-out infinite;
+    animation-delay: -4s;
+}
+.aurora-band.band4 {
+    background: linear-gradient(90deg, transparent, rgba(79, 172, 254, 0.5), rgba(0, 242, 254, 0.7), rgba(79, 172, 254, 0.5), transparent);
+    top: 40%;
+    animation: auroraWave1 9s ease-in-out infinite;
+    animation-delay: -1s;
+}
+.aurora-band.band5 {
+    background: linear-gradient(90deg, transparent, rgba(43, 255, 139, 0.4), rgba(72, 209, 204, 0.6), rgba(43, 255, 139, 0.4), transparent);
+    top: 50%;
+    animation: auroraWave2 11s ease-in-out infinite;
+    animation-delay: -3s;
+}
+
+@keyframes auroraWave1 {
+    0%, 100% { transform: translateX(-10%) skewX(-5deg) scaleY(1); opacity: 0.4; }
+    25% { transform: translateX(5%) skewX(5deg) scaleY(1.2); opacity: 0.6; }
+    50% { transform: translateX(15%) skewX(-3deg) scaleY(0.9); opacity: 0.5; }
+    75% { transform: translateX(-5%) skewX(7deg) scaleY(1.1); opacity: 0.7; }
+}
+@keyframes auroraWave2 {
+    0%, 100% { transform: translateX(10%) skewX(5deg) scaleY(1); opacity: 0.5; }
+    33% { transform: translateX(-5%) skewX(-7deg) scaleY(1.15); opacity: 0.6; }
+    66% { transform: translateX(0%) skewX(3deg) scaleY(0.95); opacity: 0.4; }
+}
+@keyframes auroraWave3 {
+    0%, 100% { transform: translateX(-5%) skewX(-3deg) scaleY(1); opacity: 0.4; }
+    50% { transform: translateX(10%) skewX(5deg) scaleY(1.1); opacity: 0.6; }
+}
+
+.aurora-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at 50% 0%, rgba(72, 209, 204, 0.2) 0%, transparent 70%);
+    animation: auroraGlow 6s ease-in-out infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes auroraGlow {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+.wave {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 30vh;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3), rgba(236, 72, 153, 0.3), transparent);
+    border-radius: 50%;
+    animation: wave 8s linear infinite;
+    filter: blur(20px);
+}
+.wave1 { animation-delay: 0s; opacity: 0.6; }
+.wave2 { animation-delay: -2s; opacity: 0.4; height: 40vh; }
+.wave3 { animation-delay: -4s; opacity: 0.3; height: 50vh; }
+
+@keyframes wave {
+    0% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(-25%) scaleY(1.1); }
+    100% { transform: translateX(-50%) scaleY(1); }
+}
+
+/* ❌ Убрал стили .light-rays и .ray */
+
+.sparkles, .stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.stars::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+        radial-gradient(2px 2px at 50px 160px, rgba(255,255,255,0.6), transparent),
+        radial-gradient(2px 2px at 90px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.5), transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: twinkle 5s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+/* ========== КОНТЕНТ ========== */
+.app-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 15px;
+    padding-bottom: 40px; /* Уменьшил отступ, так как нет плеера */
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    text-align: center;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 20px 0;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    animation: titleGlow 3s ease-in-out infinite;
+}
+
+/* Глобальные кнопки управления (в шапке) */
+.global-controls {
+    display: flex;
+    gap: 15px;
+}
+
+.global-controls button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.global-controls button:hover {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(102, 126, 234, 0.5);
+}
+
+@keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(102, 126, 234, 0.5); }
+    50% { text-shadow: 0 0 40px rgba(102, 126, 234, 0.8), 0 0 60px rgba(118, 75, 162, 0.6); }
+}
+
+/* ========== ВКЛАДКИ ========== */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-color: #667eea;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+/* ========== ПОИСК + РАНДОМ ========== */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s;
+}
+
+.search-bar input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #667eea;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
+.search-bar input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.random-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #f093fb, #704046);
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.random-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(240, 147, 251, 0.5);
+}
+
+/* ========== СПИСОК ТРЕКОВ ========== */
+.tracks-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.track-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение для прогресс бара */
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.track-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(102, 126, 234, 0.5);
+    transform: translateY(-2px);
+}
+
+.track-card.playing {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.1));
+    border-color: #667eea;
+    box-shadow: 0 0 25px rgba(102, 126, 234, 0.2);
+}
+
+/* Верхняя часть карточки (кнопки + инфо) */
+.track-top-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.track-card .play-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    flex-shrink: 0;
+}
+
+.track-card .play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+}
+
+.track-card.playing .play-btn {
+    background: linear-gradient(135deg, #304236, #38f9d7);
+    animation: pulseGreen 2s infinite;
+}
+
+@keyframes pulseGreen {
+    0% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(67, 233, 123, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(67, 233, 123, 0); }
+}
+
+.track-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.track-info h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.track-info p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+}
+
+.track-card .favorite-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.track-card .favorite-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.track-card .favorite-btn.active {
+    color: #994c56;
+    background: rgba(245, 87, 108, 0.2);
+}
+
+/* Прогресс бар внутри карточки */
+.track-progress-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+.track-progress-bar {
+    flex: 1;
+    height: 4px;
+    cursor: pointer;
+    accent-color: #667eea;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.track-progress-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.track-progress-bar::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+}
+
+.track-card.playing .track-progress-bar {
+    accent-color: #5fb47a;
+}
+
+.time-display {
+    min-width: 35px;
+    text-align: right;
+    font-family: monospace;
+}
+
+.loading {
+    text-align: center;
+    padding: 30px;
+    opacity: 0.7;
+    font-size: 0.95rem;
+}
+
+/* Адаптив */
+@media (max-width: 480px) {
+    .app-container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .global-controls button {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .track-card {
+        padding: 12px;
+    }
+    
+    .track-card .play-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+    }
+    
+    .random-btn {
+        width: 100%;
+    }
+}
+
+* {
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-animation * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 Music PWA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0f0f23">
+</head>
+<body>
+    <!-- Анимированный фон (без лучей) -->
+    <div class="bg-animation">
+        <div class="gradient-mesh"></div>
+        <div class="floating-orbs">
+            <div class="orb orb1"></div>
+            <div class="orb orb2"></div>
+            <div class="orb orb3"></div>
+            <div class="orb orb4"></div>
+            <div class="orb orb5"></div>
+        </div>
+        <div class="aurora">
+            <div class="aurora-bands">
+                <div class="aurora-band band1"></div>
+                <div class="aurora-band band2"></div>
+                <div class="aurora-band band3"></div>
+                <div class="aurora-band band4"></div>
+                <div class="aurora-band band5"></div>
+            </div>
+            <div class="aurora-glow"></div>
+        </div>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <!-- ❌ Убрал light-rays -->
+        <div class="sparkles"></div>
+        <div class="stars"></div>
+    </div>
+
+    <div class="app-container">
+        <header>
+            <h1>🎵 Music</h1>
+            <!-- Глобальное управление (так как низ убран) -->
+        
+        </header>
+
+        <!-- Вкладки -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="all">📋 Все треки</button>
+            <button class="tab-btn" data-tab="favorites">❤️ Избранное</button>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск...">
+            <button id="randomBtn" class="random-btn" title="Случайный трек">🎲</button>
+        </div>
+
+        <div class="tracks-list" id="tracksList">
+            <div class="loading">⏳ Загрузка...</div>
+        </div>
+    </div>
+
+    <!-- ❌ Убрал player-bar полностью -->
+    <!-- Остался только аудио элемент для воспроизведения -->
+    <audio id="audioPlayer"></audio>
+    
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
