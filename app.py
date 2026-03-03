@@ -23,7 +23,7 @@ TRACKS = [
     {"id": 5, "title": "Уходи", "artist": "Руки ВВерх",
      "url": "https://moosic.my.mail.ru/file/56a12a60f5a2202be0ed52c18f167581.mp3",
      "duration": "3:53"},
-    {"id": 6, "title": "Крошка моя, я по тебе скучаю", "Руки Вверх": "Piапппап",
+    {"id": 6, "title": "Крошка моя, я по тебе скучаю", "artist": "Руки Вверх",
      "url": "https://moosic.my.mail.ru/file/588746078840a1e57802f98061854877.mp3",
      "duration": "3:55"},
     {"id": 7, "title": "Алешка", "artist": "Руки Вверх",
@@ -67,6 +67,7 @@ def serve_sw():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
 
 
 
