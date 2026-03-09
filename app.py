@@ -135,7 +135,7 @@ TRACKS = [
      "url": "https://lmusic.kz/api/stream/111491",
      "duration": "2:32"},
     {"id": 43, "title": "Седая ночь", "artist": "Юрий шатунов",
-     "url": https://moosic.my.mail.ru/file/e6a02100df7a623617b1e4dd72d18176.mp3",
+     "url": "https://moosic.my.mail.ru/file/e6a02100df7a623617b1e4dd72d18176.mp3",
      "duration": "3:41"},
     {"id": 44, "title": "Выхода нет", "artist": "Сплин",
      "url": "https://moosic.my.mail.ru/file/2326248dbe37709ccb91e186cec18e5c.mp3",
@@ -272,6 +272,7 @@ def serve_sw():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
 
 
 
