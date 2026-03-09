@@ -146,13 +146,13 @@ TRACKS = [
     {"id": 46, "title": "Send me angel", "artist": "Scorpions",
      "url": "https://moosic.my.mail.ru/file/743e4551ee4f71ce195ad5273b916bd6.mp3",
      "duration": "4:34"},
-    {"id": 47, "Тополиный пух": "Снова день", "artist": "Иванушкин",
+    {"id": 47, "title": "Тополиный пух", "artist": "Иванушкин",
      "url": "https://moosic.my.mail.ru/file/d65da7cac3a36352fed0530ede8d0e7e.mp3",
      "duration": "3:51"},
     {"id": 48, "title": "Батарейка", "artist": "Жуки",
      "url": "https://moosic.my.mail.ru/file/799366c747fc53d84daeb427f240b286.mp3",
      "duration": "3:20"},
-    {"id": 49, "Босая": "Снова день", "artist": "Маша",
+    {"id": 49, "title": "Босая", "artist": "Маша",
      "url": "https://moosic.my.mail.ru/file/f8231259fea2d8712fbff39aaa55afac.mp3",
      "duration": "3:24"},
     {"id": 50, "title": "Плачу на техно", "artist": "Soda",
@@ -272,6 +272,7 @@ def serve_sw():
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0', port=5000)
+
 
 
 
